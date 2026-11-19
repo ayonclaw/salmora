@@ -153,6 +153,134 @@ meter::-webkit-meter-optimum-value {
   color: #dfd3b6;
 }
 
+#wanted {
+  position: absolute;
+  top: 105px;
+  right: 40px;
+  display: grid;
+  gap: 5px;
+  text-align: right;
+  color: #e1d4b2;
+  font: 8px monospace;
+  letter-spacing: .2em;
+}
+
+.star-row {
+  display: flex;
+  gap: 5px;
+}
+
+.star {
+  color: #e9e0c9;
+  font: normal 18px Georgia, serif;
+  opacity: .3;
+  transition: color .2s, opacity .2s, text-shadow .2s;
+}
+
+.star.lit {
+  color: #ffd177;
+  opacity: 1;
+  text-shadow: 0 0 12px #f0a957;
+}
+
+#mission {
+  position: absolute;
+  top: 151px;
+  right: 38px;
+  width: min(310px, 38vw);
+  padding: 12px 15px 13px;
+  border: 1px solid #d7c69b42;
+  border-left: 2px solid var(--gold);
+  background: linear-gradient(120deg, #142d31d9, #142d316e);
+  box-shadow: 0 6px 28px #0d1c2340;
+}
+
+.mission-kicker {
+  display: block;
+  margin-bottom: 5px;
+  color: #e2bf86;
+  font: 8px monospace;
+  letter-spacing: .2em;
+}
+
+#mission-title {
+  display: block;
+  font: 14px Georgia, serif;
+  color: #f4e7c7;
+}
+
+#mission-objective {
+  min-height: 28px;
+  margin: 6px 0 8px;
+  color: #d5d6c5;
+  font: 10px/1.45 Arial, sans-serif;
+}
+
+#mission-progress {
+  height: 2px;
+  background: #f3e8cb36;
+}
+
+#mission-progress i {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--gold);
+  transition: width .15s linear;
+}
+
+#ammo {
+  position: absolute;
+  right: 39px;
+  bottom: 116px;
+  color: #e7ddc2;
+  font: 12px monospace;
+  letter-spacing: .12em;
+  text-shadow: 0 2px 7px #102026b0;
+}
+
+#dialogue {
+  position: absolute;
+  left: 50%;
+  bottom: 85px;
+  min-width: 260px;
+  max-width: 60vw;
+  padding: 11px 18px;
+  border-left: 2px solid var(--gold);
+  background: #122a30d9;
+  color: #f4e7c7;
+  text-align: center;
+  font: 13px Georgia, serif;
+  opacity: 0;
+  transform: translate(-50%, 8px);
+  transition: opacity .45s, transform .45s;
+}
+
+#dialogue.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+#toast {
+  position: absolute;
+  left: 50%;
+  top: 27%;
+  padding: 12px 20px;
+  border-top: 1px solid var(--gold);
+  background: #173236e8;
+  color: var(--gold);
+  font: 10px monospace;
+  letter-spacing: .18em;
+  opacity: 0;
+  transform: translate(-50%, -5px);
+  transition: opacity .35s, transform .35s;
+}
+
+#toast.visible {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
 #prompt {
   position: absolute;
   bottom: 42px;

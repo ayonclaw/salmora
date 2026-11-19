@@ -16,6 +16,15 @@ export class HUD {
     this.speed = el('speed');
     this.speedValue = el('speed-value');
     this.prompt = el('prompt');
+    this.wanted = el('wanted');
+    this.ammo = el('ammo');
+    this.missionTitle = el('mission-title');
+    this.missionObjective = el('mission-objective');
+    this.missionProgress = el('mission-progress');
+    this.dialogue = el('dialogue');
+    this.toastNode = el('toast');
+    this.toastTime = 0;
+    this.dialogueTime = 0;
     this.canvas = el('map');
     this.ctx = this.canvas.getContext('2d');
     this.base = document.createElement('canvas');
@@ -101,7 +110,7 @@ export class HUD {
     this.prompt.classList.remove('visible');
   }
 
-  update(dt, player, car, yaw) {
+  update(dt, player, car, yaw, police = null, combat = null) {
     const target = player.seated ? car.pos : player.pos;
     const district = districtAt(target.x, target.z);
     if (district !== this.lastDistrict) {
@@ -115,15 +124,46 @@ export class HUD {
     this.health.value = player.health;
     this.speed.hidden = !player.seated;
     this.speedValue.textContent = String(Math.round(Math.abs(car.speed) * 3.6)).padStart(2, '0');
+    this.wanted?.querySelectorAll('.star').forEach((star, index) => star.classList.toggle('lit', index < (police?.stars ?? 0)));
+    if (this.ammo && combat) this.ammo.textContent = `${combat.magazine} / ${combat.reserve}`;
     if (this.promptTime > 0) {
       this.promptTime -= dt;
       if (this.promptTime <= 0) this.prompt.classList.remove('visible');
+    }
+    if (this.toastTime > 0) {
+      this.toastTime -= dt;
+      if (this.toastTime <= 0) this.toastNode?.classList.remove('visible');
+    }
+    if (this.dialogueTime > 0) {
+      this.dialogueTime -= dt;
+      if (this.dialogueTime <= 0) this.dialogue?.classList.remove('visible');
     }
     this.mapTime += dt;
     if (this.mapTime >= .08) {
       this.mapTime = 0;
       this.drawMap(target, car, yaw);
     }
+  }
+
+  setMission(title, objective, progress = 0) {
+    if (this.missionTitle) this.missionTitle.textContent = title;
+    if (this.missionObjective) this.missionObjective.textContent = objective;
+    const bar = this.missionProgress?.firstElementChild;
+    if (bar) bar.style.width = `${Math.max(0, Math.min(1, progress)) * 100}%`;
+  }
+
+  setDialogue(line, duration = 4) {
+    if (!this.dialogue || !line) return;
+    this.dialogue.textContent = line;
+    this.dialogue.classList.add('visible');
+    this.dialogueTime = Math.max(this.dialogueTime, duration);
+  }
+
+  toast(message, duration = 3.2) {
+    if (!this.toastNode) return;
+    this.toastNode.textContent = message;
+    this.toastNode.classList.add('visible');
+    this.toastTime = duration;
   }
 
   drawMap(target, car, yaw) {

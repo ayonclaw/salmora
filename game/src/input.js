@@ -1,5 +1,5 @@
 const controlKeys = new Set([
-  'KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyE', 'KeyR', 'Space',
+  'KeyW', 'KeyA', 'KeyS', 'KeyD', 'KeyE', 'KeyQ', 'KeyR', 'KeyF', 'Backspace', 'Space',
   'ShiftLeft', 'ShiftRight', 'ArrowUp', 'ArrowLeft', 'ArrowDown', 'ArrowRight',
 ]);
 
@@ -27,6 +27,12 @@ export class Input {
       this.held.add(event.code);
     });
     window.addEventListener('keyup', event => this.held.delete(event.code));
+    window.addEventListener('mousedown', event => {
+      if (this.active && event.button === 0) {
+        this.pressed.add('MousePrimary');
+        event.preventDefault();
+      }
+    });
     window.addEventListener('blur', pause);
     document.addEventListener('visibilitychange', () => {
       if (document.hidden) pause();

@@ -88,6 +88,7 @@ export class World {
   resize() {
     const w = this.host.clientWidth;
     const h = this.host.clientHeight;
+    this.renderer.setPixelRatio(Math.min(devicePixelRatio, this.low ? 1 : 1.5));
     this.renderer.setSize(w, h);
     this.camera.aspect = w / h;
     this.camera.updateProjectionMatrix();
@@ -105,6 +106,7 @@ export class World {
 
   start(step, draw) {
     const fixed = 1 / 60;
+    let lastDraw = 0;
     const tick = ms => {
       const delta = this.previous ? Math.min(.12, (ms - this.previous) / 1000) : fixed;
       this.previous = ms;
@@ -116,9 +118,13 @@ export class World {
           this.accumulator -= fixed;
         }
       } else this.accumulator = 0;
-      draw(delta, this.stages ? 94.2 : this.elapsed);
-      this.renderer.render(this.scene, this.camera);
-      this.frames++;
+      if (!lastDraw || ms - lastDraw >= 1000 / 30) {
+        const drawDelta = lastDraw ? (ms - lastDraw) / 1000 : delta;
+        draw(drawDelta, this.stages ? 94.2 : this.elapsed);
+        this.renderer.render(this.scene, this.camera);
+        this.frames++;
+        lastDraw = ms;
+      }
     };
     this.renderer.setAnimationLoop(tick);
   }

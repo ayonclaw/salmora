@@ -14,9 +14,14 @@
   <div id="hud" hidden>
     <div class="location"><span class="eyebrow">SALMORA / FREE ROAM</span><strong id="district"></strong></div>
     <div class="wallet"><span class="eyebrow">CROWNS</span><strong id="cash"></strong><meter id="health" min="0" max="100" value="100" aria-label="Health"></meter></div>
+    <div id="wanted" aria-label="Wanted level"><span>WANTED</span><div class="star-row"><i class="star">★</i><i class="star">★</i><i class="star">★</i><i class="star">★</i><i class="star">★</i></div></div>
+    <aside id="mission" aria-live="polite"><span class="mission-kicker">HARBOR CONTRACT</span><strong id="mission-title">JOB 01 / THE FERRY LEDGER</strong><p id="mission-objective">Meet the ferry clerk at Lantern Quay</p><div id="mission-progress"><i></i></div></aside>
     <div class="navigation"><div class="map-label"><span>LOCAL CHART</span><span>N ↑</span></div><canvas id="map" width="180" height="144" aria-label="Local street map"></canvas></div>
     <div id="speed" hidden><strong id="speed-value">00</strong><span>KM/H</span></div>
+    <div id="ammo" aria-label="Pistol ammunition">8 / 48</div>
     <div id="prompt" role="status"></div>
+    <div id="dialogue" role="status"></div>
+    <div id="toast" role="status"></div>
   </div>
   <section id="arrival" class="overlay" aria-labelledby="title">
     <div class="arrival-inner">
@@ -37,7 +42,10 @@
         <dt>Shift</dt><dd>Run</dd>
         <dt>Space</dt><dd>Hop or brake</dd>
         <dt>E</dt><dd>Enter or leave wagon</dd>
-        <dt>R</dt><dd>Return to the quay</dd>
+        <dt>Q</dt><dd>Deliver or accept a job</dd>
+        <dt>F / mouse</dt><dd>Fire the pistol</dd>
+        <dt>R</dt><dd>Reload magazine</dd>
+        <dt>Backspace</dt><dd>Return to the quay</dd>
         <dt>Esc</dt><dd>Pause / release mouse</dd>
       </dl>
       <button id="resume" type="button">Back to the quay <span aria-hidden="true">↗</span></button>

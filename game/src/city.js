@@ -22,7 +22,7 @@ const names = [
   'The Cobalt Cup', 'Ebb Studio', 'Lost Parcel', 'Brine & Bread',
 ];
 
-export function buildCity(scene) {
+export function buildCity(scene, low = false) {
   const collision = new Collision();
   const group = new T.Group();
   group.name = 'Salmora street grid';
@@ -53,6 +53,9 @@ export function buildCity(scene) {
   const shops = [];
   const signMaterials = new Map();
   const signPlane = new T.PlaneGeometry(1, 1);
+  const lowSigns = low ? new T.InstancedMesh(cube, standard(0xffffff), 192) : null;
+  let lowSignIndex = 0;
+  if (lowSigns) group.add(lowSigns);
   const span = EAST - WEST;
 
   ground(group, street, 0, -.015, NORTH / 2, span, -NORTH + 12);
@@ -138,6 +141,18 @@ export function buildCity(scene) {
   }
 
   function storefront(x, z, w, yaw, name, id) {
+    if (lowSigns) {
+      const sign = new T.Object3D();
+      sign.position.set(x, 2.82, z + (yaw === 0 ? .19 : -.19));
+      sign.rotation.y = yaw;
+      sign.scale.set(w - .35, .78, .12);
+      sign.updateMatrix();
+      lowSigns.setMatrixAt(lowSignIndex, sign.matrix);
+      lowSigns.setColorAt(lowSignIndex, new T.Color([0xd3bd8e, 0x93a89b, 0xb67c60, 0xd8d3bc][id % 4]));
+      lowSignIndex++;
+      shops.push({ name, x, z });
+      return;
+    }
     const entry = new T.Group();
     entry.position.set(x, .18, z);
     entry.rotation.y = yaw;
@@ -202,6 +217,10 @@ export function buildCity(scene) {
     }
   }
 
+  if (lowSigns) {
+    lowSigns.instanceMatrix.needsUpdate = true;
+    if (lowSigns.instanceColor) lowSigns.instanceColor.needsUpdate = true;
+  }
   marks.flush(group);
   yellow.flush(group);
   ledges.flush(group);
