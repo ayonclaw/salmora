@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#15262a">
+  <title>Salmora | After the Flood</title>
+  <link rel="icon" href="data:,">
+  <link rel="stylesheet" href="./src/hud.css">
+  <script type="importmap">{"imports":{"three":"./vendor/three.module.min.js"}}</script>
+</head>
+<body>
+  <main id="viewport" aria-label="Salmora game view"></main>
+  <div id="hud" hidden>
+    <div class="location"><span class="eyebrow">SALMORA / FREE ROAM</span><strong id="district"></strong></div>
+    <div class="wallet"><span class="eyebrow">CROWNS</span><strong id="cash"></strong><meter id="health" min="0" max="100" value="100" aria-label="Health"></meter></div>
+    <div class="navigation"><div class="map-label"><span>LOCAL CHART</span><span>N ↑</span></div><canvas id="map" width="180" height="144" aria-label="Local street map"></canvas></div>
+    <div id="speed" hidden><strong id="speed-value">00</strong><span>KM/H</span></div>
+    <div id="prompt" role="status"></div>
+  </div>
+  <section id="arrival" class="overlay" aria-labelledby="title">
+    <div class="arrival-inner">
+      <p class="eyebrow"><i></i> THE RECLAIMED COAST</p>
+      <h1 id="title">SALMORA</h1>
+      <p class="subtitle">AFTER THE FLOOD</p>
+      <button id="start" type="button">Enter the quay <span aria-hidden="true">↗</span></button>
+    </div>
+    <div class="edition"><span>HARBOR SERIES</span><span>01 / LANTERN QUAY</span></div>
+  </section>
+  <section id="pause" class="overlay" aria-labelledby="pause-title" hidden>
+    <div class="pause-card">
+      <p class="eyebrow">SALMORA / PORT AUTHORITY</p>
+      <h2 id="pause-title">On a break</h2>
+      <dl>
+        <dt>W A S D</dt><dd>Move or drive</dd>
+        <dt>Mouse</dt><dd>Look or orbit</dd>
+        <dt>Shift</dt><dd>Run</dd>
+        <dt>Space</dt><dd>Hop or brake</dd>
+        <dt>E</dt><dd>Enter or leave wagon</dd>
+        <dt>R</dt><dd>Return to the quay</dd>
+        <dt>Esc</dt><dd>Pause / release mouse</dd>
+      </dl>
+      <button id="resume" type="button">Back to the quay <span aria-hidden="true">↗</span></button>
+    </div>
+  </section>
+  <section id="failure" class="overlay" hidden><p role="alert" id="failure-text"></p></section>
+  <script type="module" src="./src/game.js"></script>
+</body>
+</html>
