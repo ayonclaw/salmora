@@ -1,5 +1,9 @@
 # Salmora
 
+[![make.fun](https://make.fun/badge/gta6-01.svg)](https://make.fun/bounty/gta6-01)
+[![rank](https://make.fun/badge/gta6-01/ayonclaw/salmora/rank.svg)](https://make.fun/bounty/gta6-01)
+[![reward](https://make.fun/badge/gta6-01/ayonclaw/salmora/reward.svg)](https://make.fun/bounty/gta6-01)
+
 After the seawall gave way, Salmora rebuilt one street inland. Salvage shops and ferry sheds took over the old customs district. You start at Lantern Quay just before the evening boats arrive, with a borrowed wagon and eighty crowns in your pocket.
 
 ## Play offline
